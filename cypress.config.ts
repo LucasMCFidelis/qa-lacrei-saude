@@ -6,6 +6,15 @@ import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esb
 export default defineConfig({
   e2e: {
     baseUrl: "https://paciente-staging.lacreisaude.com.br/",
+
+    reporter: "mochawesome",
+    reporterOptions: {
+      reportDir: "cypress/reports/json",
+      overwrite: false,
+      html: false,
+      json: true,
+    },
+
     specPattern: process.env.CYPRESS_SPEC || "cypress/e2e/**/*.feature",
     async setupNodeEvents(
       on: Cypress.PluginEvents,
