@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Instalar dependências
@@ -34,7 +34,8 @@ jobs:
         with:
           browser: chrome
           headed: false
-          spec: cypress/e2e/cadastro/**/*.feature
+        env:
+          CYPRESS_SPEC: cypress/e2e/features/cadastre.feature
 
       - name: Gerar relatório HTML (Mochawesome)
         if: always()

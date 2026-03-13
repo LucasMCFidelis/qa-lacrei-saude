@@ -6,7 +6,7 @@ import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esb
 export default defineConfig({
   e2e: {
     baseUrl: "https://paciente-staging.lacreisaude.com.br/",
-    specPattern: "cypress/e2e/features/**/*.feature",
+    specPattern: process.env.CYPRESS_SPEC || "cypress/e2e/**/*.feature",
     async setupNodeEvents(
       on: Cypress.PluginEvents,
       config: Cypress.PluginConfigOptions,
