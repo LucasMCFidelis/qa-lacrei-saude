@@ -242,7 +242,6 @@ Validação realizada com **Google Lighthouse** e **Chrome DevTools** sobre o am
 | Atributos `aria-label` nos botões críticos | ✅ Presente |
 | Contraste de cores mínimo (WCAG AA) | ✅ Verificado |
 | Campos de formulário com `label` associado | ✅ Verificado |
-| Mensagens de erro anunciadas para leitores de tela | ✅ Verificado |
 
 ### Score Lighthouse — Acessibilidade
 
@@ -254,50 +253,27 @@ Validação realizada com **Google Lighthouse** e **Chrome DevTools** sobre o am
 
 ---
 
-## ⚡ Testes de Desempenho
-
-Validação de performance com **Google Lighthouse** nas operações críticas do fluxo de cadastro.
-
-### Resultados por operação
-
-| Operação | Tempo de Resposta | Meta |
-|---|---|---|
-| Carregamento da página de cadastro | _registrar após execução_ | < 500ms |
-| Submissão do formulário de cadastro | _registrar após execução_ | < 500ms |
-| Redirecionamento pós-cadastro | _registrar após execução_ | < 500ms |
-
-### Simulação de carga
-
-- Ferramenta: Lighthouse (modo simulação)
-- Usuários simultâneos simulados: 30
-- Rede simulada: 4G
-
-> 📋 Resultados, gráficos e análise completa documentados no Notion.
-
----
-
 ## 📱 Testes de Responsividade
 
 Validação do comportamento da interface nas dimensões mobile e desktop.
 
 ### Breakpoints testados
 
-| Dispositivo | Resolução | Resultado |
-|---|---|---|
-| Mobile | 375 × 812 (iPhone 12) | _registrar_ |
-| Mobile (limite) | 600 × 900 | _registrar_ |
-| Desktop | 1280 × 800 | _registrar_ |
-| Desktop wide | 1920 × 1080 | _registrar_ |
+| Dispositivo | Resolução 
+|---|---|
+| Mobile | 375 × 812 (iPhone 12) 
+| Mobile (limite) | 600 × 900 
+| Desktop | 1280 × 800 
+| Desktop wide | 1920 × 1080 
 
 ### Itens validados
 
 - Layout sem sobreposição de elementos
 - Campos do formulário acessíveis e usáveis
-- Botões com área de toque adequada (≥ 44px)
 - Textos legíveis sem zoom horizontal
 - Checkboxes e links visíveis e funcionais
 
-> 📋 Bugs de responsividade encontrados estão registrados nas Issues do GitHub e no Notion.
+> 📋 Bugs de responsividade encontrados estão registrados no Notion.
 
 ---
 
@@ -305,7 +281,6 @@ Validação do comportamento da interface nas dimensões mobile e desktop.
 
 Os bugs encontrados são registrados em:
 
-- **GitHub Issues** — com labels de impacto (`crítico`, `alto`, `médio`, `baixo`)
 - **Notion** — com descrição detalhada, passos para reprodução, prints/vídeos e sugestão de prioridade
 
 ### Classificação de impacto
@@ -316,53 +291,6 @@ Os bugs encontrados são registrados em:
 | 🟠 Alto | Afeta funcionalidade importante, mas existe contorno |
 | 🟡 Médio | Comportamento incorreto com baixo impacto na experiência |
 | 🟢 Baixo | Problema visual ou de usabilidade menor |
-
-> 🔗 [Ver Issues abertas no GitHub](../../issues)
-
----
-
-## 🔒 Checklist de Segurança
-
-| Item | Status |
-|---|---|
-| Nenhuma senha ou credencial real commitada no repositório | ✅ |
-| Dados de teste gerados dinamicamente (sem dados reais de usuários) | ✅ |
-| `.gitignore` configurado para ignorar reports, screenshots, vídeos e `node_modules` | ✅ |
-| Testes executados exclusivamente no ambiente de staging | ✅ |
-| Sem uso de dados pessoais sensíveis nos fixtures | ✅ |
-| Pipeline sem exposição de variáveis de ambiente sensíveis | ✅ |
-
----
-
-## 🔁 Rollback de Testes Automatizados
-
-Em caso de falha na pipeline ou comportamento inesperado após um merge:
-
-### 1. Identificar o commit problemático
-
-```bash
-git log --oneline -10
-```
-
-### 2. Reverter para o estado estável
-
-```bash
-# Opção A — reverter mantendo histórico (recomendado)
-git revert HEAD
-git push origin main
-
-# Opção B — reset para commit específico (emergência)
-git reset --hard <hash-do-commit-estável>
-git push origin main --force
-```
-
-### 3. Verificar estabilidade
-
-Acionar manualmente a pipeline via **Actions → Run workflow** e confirmar que todos os testes voltam a passar antes de retomar o desenvolvimento.
-
-### 4. Abrir issue de rastreamento
-
-Registrar uma issue no GitHub descrevendo o problema, o commit afetado, o rollback realizado e os próximos passos para correção definitiva.
 
 ---
 
@@ -375,7 +303,6 @@ Registrar uma issue no GitHub descrevendo o problema, o commit afetado, o rollba
 | `cypress/pages/` | Page Objects por página da aplicação |
 | `cypress/support/selectors/` | Seletores CSS isolados por contexto |
 | `cypress/support/constants/` | Mensagens e constantes reutilizáveis |
-| GitHub Issues | Registro e rastreamento de bugs |
 | Notion | Documentação expandida, resultados e análises |
 
 ---
