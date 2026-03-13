@@ -1,0 +1,80 @@
+name: E2E Tests — Cadastro
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    name: Cypress E2E — Cadastro
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Executar testes E2E
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          headed: false
+          spec: cypress/e2e/cadastro/**/*.feature
+
+      - name: Gerar relatório HTML (Mochawesome)
+        if: always()
+        run: |
+          npx mochawesome-merge cypress/reports/json/*.json -o cypress/reports/report.json
+          npx marge cypress/reports/report.json --reportDir cypress/reports/html --inline
+        continue-on-error: true
+
+      - name: Upload relatório HTML
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-report-${{ github.run_number }}
+          path: cypress/reports/html
+          retention-days: 30
+
+      - name: Upload screenshots em caso de falha
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-${{ github.run_number }}
+          path: cypress/screenshots
+          retention-days: 7
+
+      - name: Upload vídeos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos-${{ github.run_number }}
+          path: cypress/videos
+          retention-days: 7
+
+      - name: Publicar resumo no GitHub
+        if: always()
+        run: |
+          echo "## 🧪 Resultado E2E — Cadastro" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Item | Detalhe |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|---------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Execução | #${{ github.run_number }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Artefatos | Screenshots, Vídeos e Relatório HTML disponíveis na aba **Actions → Artifacts** |" >> $GITHUB_STEP_SUMMARY
