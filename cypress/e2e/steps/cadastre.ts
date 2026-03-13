@@ -36,7 +36,10 @@ Given("que dei consentimento nos checkboxes obrigatórios", () => {
 });
 
 Given("que tenho salvo o e-mail de uma conta já cadastrada", () => {
-  savedEmail = "usuario.existente@email.com";
+  const user = VALID_USER;
+  CadastrePage.visit()
+  CadastrePage.registerUser(user);
+  savedEmail = user.email;
 });
 
 // ─── Ações / Quando ───────────────────────────────────────────
@@ -94,8 +97,8 @@ When(
 When(
   "preencho os campos {string} e {string} com um e-mail com domínio inexistente",
   (campo1: string, campo2: string) => {
-    CadastrePage.fillEmail("usuario@@example.com");
-    CadastrePage.fillEmailConfirm("usuario@@example.com");
+    CadastrePage.fillEmail("usuario@example.com");
+    CadastrePage.fillEmailConfirm("usuario@example.com");
   },
 );
 
